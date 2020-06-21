@@ -9,18 +9,51 @@ import java.util.Scanner;
  
 public class ManipuladorArquivo {
  
+    private String path;
+    private String msg;
+    
+	
+	public ManipuladorArquivo(String path, String msg) {
+		this.path = path;
+		this.msg = msg;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
     public static void leitor(String path) throws IOException {
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+        
+		
+    	BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = "";
-        while (true) {
-            if (linha != null) {
-                System.out.println(linha);
- 
-            } else
-                break;
-            linha = buffRead.readLine();
-        }
-        buffRead.close();
+        do {
+        	linha = buffRead.readLine();
+        	if (linha != null) {
+               linha = linha + "\n";
+               System.out.println(linha);
+            } else {
+        //    	System.out.println(linha);
+            	buffRead.close();
+            //	msg = linha;
+            	//break;
+            }
+                
+            
+        }while (linha != null);
+        
     }
  
     public static void escritor(String path) throws IOException {
@@ -31,6 +64,7 @@ public class ManipuladorArquivo {
         linha = in.nextLine();
         buffWrite.append(linha + "\n");
         buffWrite.close();
+        in.close();
     }
  
 }
